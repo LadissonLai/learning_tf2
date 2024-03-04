@@ -45,24 +45,8 @@ int main(int argc, char** argv) {
         0.5 * sqrt(pow(transformStamped.transform.translation.x, 2) +
                    pow(transformStamped.transform.translation.y, 2));
 
-    if (fabs(vel_msg.linear.x) < 0.01) {
-      // 把四元数转为欧拉角
-      geometry_msgs::Quaternion quat = transformStamped.transform.rotation;
-      tf2::Quaternion quaternion(quat.x, quat.y, quat.z, quat.w);
-      tf2::Matrix3x3 matrix(quaternion);
-      double roll, pitch, yaw;
-      matrix.getRPY(roll, pitch, yaw);
-      //   vel_msg.angular.z = tf2Radians(yaw) * 4;
-      if (fabs(yaw) < 0.1) {
-        vel_msg.angular.z = 0;
-      } else {
-        vel_msg.angular.z = yaw;
-      }
-
-    } else {
-      vel_msg.angular.z = 4.0 * atan2(transformStamped.transform.translation.y,
+    vel_msg.angular.z = 4.0 * atan2(transformStamped.transform.translation.y,
                                       transformStamped.transform.translation.x);
-    }
     turtle_vel.publish(vel_msg);
 
     rate.sleep();

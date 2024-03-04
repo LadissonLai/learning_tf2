@@ -150,6 +150,11 @@ target_link_libraries(tf2_listener
  ${catkin_LIBRARIES}
 )
 
+add_executable(v2q_q2v src/v2q_q2v.cpp)
+target_link_libraries(v2q_q2v
+ ${catkin_LIBRARIES}
+)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
